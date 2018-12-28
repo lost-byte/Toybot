@@ -7,6 +7,7 @@
 
 #include "pin_helper.h"
 #include "settings.h"
+#include "display.h"
 
 
 
@@ -27,6 +28,19 @@ void init(void){
 	SET(keyCol2);
 	SET(keyCol3);
 	SET(keyCol4);
+
+	//Светодиоды
+	PIN_OUT(LED1);
+	PIN_OUT(LED2);
+	PIN_OUT(LED3);
+	PIN_OUT(LED4);
+
+	PIN_OUT(LCD_LED);
+	SET(LCD_LED);
+
+	init_display();
+	show_logo();
+
 }
 
 #define key_buf_len 12
@@ -55,8 +69,8 @@ void key_scan(void){
 	SET(keyRow1);
 	CLR(keyRow2);
 	SET(keyRow3);
-	key_bitsR3=~key_bitsR3;
 	key_bitsR3 = 0xF0||(GET(keyCol4)<<3)||(GET(keyCol3)<<2)||(GET(keyCol2)<<1)||(GET(keyCol1));
+	key_bitsR3=~key_bitsR3;
 	if ((key_bitsR1||key_bitsR2||key_bitsR3)!=0){
 		// Разбор битфилда в коды нажатий
 	}
@@ -69,5 +83,19 @@ void main (void){
 		if (has_key){
 			/// Отработать команду
 		}
+		/*
+		_delay_ms(200);
+		SET(LED2);
+		SET(LED1);
+		_delay_ms(200);
+		CLR(LED2);
+		SET(LED1);
+		_delay_ms(200);
+		SET(LED2);
+		CLR(LED1);
+		_delay_ms(200);
+		CLR(LED2);
+		CLR(LED1);
+		*/
 	}
 }
