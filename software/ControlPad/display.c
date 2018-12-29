@@ -179,7 +179,11 @@ uint8_t u8x8_gpio_and_delay(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *ar
     	}
       break;
     case U8X8_MSG_GPIO_CS:				// CS (chip select) pin: Output level in arg_int
-    	//arg_int?SET(LCD_CS):CLR(LCD_CS);
+    	if(arg_int){
+			SET(LCD_CS);
+		}else{
+			CLR(LCD_CS);
+		}
       break;
     case U8X8_MSG_GPIO_DC:				// DC (data/cmd, A0, register select) pin: Output level in arg_int
     	if(arg_int){
@@ -195,21 +199,23 @@ uint8_t u8x8_gpio_and_delay(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *ar
     		CLR(LCD_RESET);
     	}
       break;
-    case U8X8_MSG_GPIO_CS1:				// CS1 (chip select) pin: Output level in arg_int
-    	if(arg_int){
-    		SET(LCD_CS);
-    	}else{
-    		CLR(LCD_CS);
-    	}
-      break;
-    case U8X8_MSG_GPIO_CS2:				// CS2 (chip select) pin: Output level in arg_int
-    	if(arg_int){
-    		CLR(LCD_CS);
-    	}else{
-    		SET(LCD_CS);
-    	}
+//    case U8X8_MSG_GPIO_CS1:				// CS1 (chip select) pin: Output level in arg_int
+//    	if(arg_int){
+//    		SET(LCD_CS);
+//    	}else{
+//    		CLR(LCD_CS);
+//    	}
+//      break;
+//    case U8X8_MSG_GPIO_CS2:				// CS2 (chip select) pin: Output level in arg_int
+//    	if(arg_int){
+//    		CLR(LCD_CS);
+//    	}else{
+//    		SET(LCD_CS);
+//    	}
       break;
     default:
+    	if (u8x8_avr_delay(u8x8, msg, arg_int, arg_ptr))	// check for any delay msgs
+    					return 1;
       u8x8_SetGPIOResult(u8x8, 1);			// default return value
       break;
   }
@@ -218,6 +224,13 @@ uint8_t u8x8_gpio_and_delay(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *ar
 
 void init_display(void){
 	u8g2_Setup_sed1520_122x32_1(&u8g2, U8G2_R0, u8x8_byte_sed1520, u8x8_gpio_and_delay);
+	u8g2_InitDisplay(&u8g2);
+
+	u8g2_ClearBuffer(&u8g2);
+	u8g2_SetFont(&u8g2, u8g2_font_4x6_tn);
+	u8g2_DrawStr(&u8g2, 1, 18, "U8g2 on AVR");
+	u8g2_SendBuffer(&u8g2);
+
 }
 
 static const unsigned char logo[] U8X8_PROGMEM = {
