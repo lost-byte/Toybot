@@ -83,7 +83,7 @@ void main (void){
 		if (has_key){
 			/// Отработать команду
 		}
-		/*
+
 		_delay_ms(200);
 		SET(LED2);
 		SET(LED1);
@@ -96,6 +96,6 @@ void main (void){
 		_delay_ms(200);
 		CLR(LED2);
 		CLR(LED1);
-		*/
+
 	}
 }

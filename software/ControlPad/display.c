@@ -210,7 +210,9 @@ uint8_t u8x8_gpio_and_delay(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *ar
     	}
       break;
     default:
-      u8x8_SetGPIOResult(u8x8, 1);			// default return value
+    	if (u8x8_avr_delay(u8x8, msg, arg_int, arg_ptr))	// check for any delay msgs
+    					return 1;
+    	u8x8_SetGPIOResult(u8x8, 1);			// default return value
       break;
   }
   return 1;
@@ -218,6 +220,8 @@ uint8_t u8x8_gpio_and_delay(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *ar
 
 void init_display(void){
 	u8g2_Setup_sed1520_122x32_1(&u8g2, U8G2_R0, u8x8_byte_sed1520, u8x8_gpio_and_delay);
+	u8g2_InitDisplay(&u8g2);
+
 }
 
 static const unsigned char logo[] U8X8_PROGMEM = {
