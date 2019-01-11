@@ -10,5 +10,6 @@
 
 void init_display(void);
 void show_logo (void);
+void print_key(char key);
 
 #endif /* DISPLAY_H_ */

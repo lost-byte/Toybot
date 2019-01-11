@@ -76,6 +76,8 @@ u8x8_d_ls013b7dh03.c
 
 u8x8_d_max7219.c
 
+u8x8_d_mt12232.c
+
 u8x8_d_pcd8544_84x48.c
 
 u8x8_d_pcf8812.c

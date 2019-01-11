@@ -43,47 +43,98 @@ void init(void){
 
 }
 
-#define key_buf_len 12
-static bool has_key = false;
-unsigned char key_buf[key_buf_len];
+
 /*
  * Сканирует клавиатуру и помещает
  * коды нажатых клавиш в буфер
  */
-void key_scan(void){
+char key_scan(void){
 	unsigned char key_bitsR1,key_bitsR2,key_bitsR3;
-	memset(key_buf,0,key_buf_len);
+	unsigned short key_bits;
+	//memset(key_buf,0,key_buf_len);
 	/// row1
-	CLR(keyRow1);
+	SET(keyRow1);
 	SET(keyRow2);
-	SET(keyRow3);
-	key_bitsR1 = 0xF0||(GET(keyCol4)<<3)||(GET(keyCol3)<<2)||(GET(keyCol2)<<1)||(GET(keyCol1));
-	key_bitsR1=~key_bitsR1;
+	CLR(keyRow3);
+	_delay_ms(10);
+	key_bits |= !GET(keyCol4);
+	key_bits<<=1;
+	key_bits |= !GET(keyCol3);
+	key_bits<<=1;
+	key_bits |= !GET(keyCol2);
+	key_bits<<=1;
+	key_bits |= !GET(keyCol1);
+	key_bits<<=1;
 	/// row2
 	SET(keyRow1);
 	CLR(keyRow2);
 	SET(keyRow3);
-	key_bitsR2 = 0xF0||(GET(keyCol4)<<3)||(GET(keyCol3)<<2)||(GET(keyCol2)<<1)||(GET(keyCol1));
-	key_bitsR2=~key_bitsR2;
+	_delay_ms(10);
+	key_bits |= !GET(keyCol4);
+	key_bits<<=1;
+	key_bits |= !GET(keyCol3);
+	key_bits<<=1;
+	key_bits |= !GET(keyCol2);
+	key_bits<<=1;
+	key_bits |= !GET(keyCol1);
+	key_bits<<=1;
 	/// row3
-	SET(keyRow1);
-	CLR(keyRow2);
+	CLR(keyRow1);
+	SET(keyRow2);
 	SET(keyRow3);
-	key_bitsR3 = 0xF0||(GET(keyCol4)<<3)||(GET(keyCol3)<<2)||(GET(keyCol2)<<1)||(GET(keyCol1));
-	key_bitsR3=~key_bitsR3;
-	if ((key_bitsR1||key_bitsR2||key_bitsR3)!=0){
-		// Разбор битфилда в коды нажатий
+	_delay_ms(10);
+	key_bits |= !GET(keyCol4);
+	key_bits<<=1;
+	key_bits |= !GET(keyCol3);
+	key_bits<<=1;
+	key_bits |= !GET(keyCol2);
+	key_bits<<=1;
+	key_bits |= !GET(keyCol1);
+	//key_bits<<=1;
+	
+	// Разбор битфилда в коды нажатий
+	switch(key_bits){
+		case 0x01:
+			return '1';
+		case 0x02:
+			return '2';
+		case 0x04:
+			return '3';
+		case 0x08:
+			return 'M';
+		case 0x10:
+			return '4';
+		case 0x20:
+			return '5';
+		case 0x40:
+			return '6';
+		case 0x80:
+			return 'C';
+		case 0x100:
+			return '7';
+		case 0x200:
+			return '8';
+		case 0x400:
+			return '9';
+		case 0x800:
+			return '0';
+		default:
+			return 0;
+
 	}
 }
 
 int main (void){
+	char key=0;
 	init();
+	SET(LED1);
 	while(1){
-		key_scan();
-		if (has_key){
+		key = key_scan();
+		if (key){
 			/// Отработать команду
+			print_key(key);
 		}
-
+		/*
 		_delay_ms(200);
 		SET(LED2);
 		SET(LED1);
@@ -96,6 +147,7 @@ int main (void){
 		_delay_ms(200);
 		CLR(LED2);
 		CLR(LED1);
-
+		*/
+		TGL(LED1);
 	}
 }
