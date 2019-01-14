@@ -9,7 +9,7 @@
 #ifndef BEEPER_H_
 #define BEEPER_H_
 
-void blip_reg();
+void blip_ok();
 void blip_err();
 void blip_enter();
 

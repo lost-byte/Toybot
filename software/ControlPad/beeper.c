@@ -27,7 +27,7 @@
 	 OCR1B = amp;
  }
 
- void blip_reg(){
+ void blip_ok(){
 	 pwm_start();
 	 _delay_ms(100);
 	 pwm_amp_freq(50,600UL);
