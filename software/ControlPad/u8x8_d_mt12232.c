@@ -200,12 +200,12 @@ uint8_t u8x8_d_mt12232_122x32(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *
       //c = ((u8x8_tile_t *)arg_ptr)->cnt;
       
       u8x8->cad_cb(u8x8, U8X8_MSG_CAD_START_TRANSFER, 0, NULL);
-      u8x8_cad_SendCmd(u8x8, 0x000 | 13);		// column 0
+      u8x8_cad_SendCmd(u8x8, 0x000 | 19);		// column 0
       u8x8_cad_SendCmd(u8x8, 0x0b8 | (((u8x8_tile_t *)arg_ptr)->y_pos));
-      u8x8_cad_SendData(u8x8, 67, ptr);	/* note: SendData can not handle more than 255 bytes */    
+      u8x8_cad_SendData(u8x8, 61, ptr);	/* note: SendData can not handle more than 255 bytes */    
       u8x8->cad_cb(u8x8, U8X8_MSG_CAD_END_TRANSFER, 0, NULL);
 
-      ptr += 67;
+      ptr += 61;
       
       u8x8->cad_cb(u8x8, U8X8_MSG_CAD_START_TRANSFER, 1, NULL);
       u8x8_cad_SendCmd(u8x8, 0x000 | 0);		// column 0

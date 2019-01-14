@@ -46,5 +46,7 @@
 #define LCD_RESET A,6
 #define LCD_CS A,7
 
+// Beeper
+#define BEEPER E,2
 
 #endif /* SETTINGS_H_ */

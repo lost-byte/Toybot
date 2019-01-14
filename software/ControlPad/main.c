@@ -1,14 +1,12 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
-#include <stdbool.h>
-#include <util/delay.h>
 #include <string.h>
 
 #include "pin_helper.h"
 #include "settings.h"
 #include "display.h"
-
+#include "beeper.h"
 
 
 void init(void){
@@ -37,6 +35,8 @@ void init(void){
 
 	PIN_OUT(LCD_LED);
 	SET(LCD_LED);
+
+	PIN_OUT(BEEPER);
 
 	init_display();
 	show_logo();
@@ -101,7 +101,7 @@ char key_scan(void){
 		case 0x04:
 			return '3';
 		case 0x08:
-			return 'M';
+			return 'C';
 		case 0x10:
 			return '4';
 		case 0x20:
@@ -109,7 +109,7 @@ char key_scan(void){
 		case 0x40:
 			return '6';
 		case 0x80:
-			return 'C';
+			return '0';
 		case 0x100:
 			return '7';
 		case 0x200:
@@ -117,7 +117,7 @@ char key_scan(void){
 		case 0x400:
 			return '9';
 		case 0x800:
-			return '0';
+			return 0x0d; //Enter
 		default:
 			return 0;
 
@@ -127,12 +127,19 @@ char key_scan(void){
 int main (void){
 	char key=0;
 	init();
+	//pwm_start();
 	SET(LED1);
+	
 	while(1){
 		key = key_scan();
 		if (key){
+			
+			blip_reg();
+
 			/// Отработать команду
 			print_key(key);
+
+			
 		}
 		/*
 		_delay_ms(200);
