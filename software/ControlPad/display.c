@@ -6,9 +6,24 @@
 */
 #include <avr/io.h>
 #include <util/delay.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "pin_helper.h"
 #include "settings.h"
 #include "u8g2.h"
+
+/// Точка (верхняя левая) вывода вводимой строки
+/// Высота командной строки 20
+#define cmd_line_x (62)
+#define cmd_line_y (11)
+/// Глиф команды 20x20
+#define cmd_gliph_w (20)
+#define cmd_gliph_h (20)
+
+#define cmd_arg_x (cmd_line_x+cmd_gliph_w)
+#define cmd_arg_y (cmd_line_y+cmd_gliph_h)
+
 
 u8g2_t u8g2;
 
@@ -266,38 +281,47 @@ void init_display(void){
 
 }
 
+/// Глифы команд
+/// Назад
 static const unsigned char backward[] U8X8_PROGMEM = {
 	0x00, 0x00, 0xe0, 0x03, 0xe0, 0x03, 0xe0, 0x03, 0xe0, 0x03, 0xe0, 0x03,
 	0xe0, 0x03, 0xe0, 0x03, 0xe0, 0x03, 0xfc, 0x1f, 0xf8, 0x0f, 0xf0, 0x07,
 0xe0, 0x03, 0xc0, 0x01, 0x80, 0x00, 0x00, 0x00 };
 
+/// Вперед
 static const unsigned char forward[] U8X8_PROGMEM= {
 	0x00, 0x00, 0x80, 0x00, 0xc0, 0x01, 0xe0, 0x03, 0xf0, 0x07, 0xf8, 0x0f,
 	0xfc, 0x1f, 0xe0, 0x03, 0xe0, 0x03, 0xe0, 0x03, 0xe0, 0x03, 0xe0, 0x03,
 0xe0, 0x03, 0xe0, 0x03, 0xe0, 0x03, 0x00, 0x00 };
 
+/// Налево
 static const unsigned char left[] U8X8_PROGMEM= {
 	0x40, 0x00, 0x60, 0x00, 0xf0, 0x07, 0xf8, 0x0f, 0xfc, 0x1f, 0xf8, 0x1f,
 	0xf0, 0x3f, 0x60, 0x3e, 0x40, 0x3c, 0x00, 0x3c, 0x00, 0x3c, 0x00, 0x3c,
 0x00, 0x3c, 0x00, 0x3c, 0x00, 0x3c, 0x00, 0x00 };
 
+/// Направо
 static const unsigned char right[] U8X8_PROGMEM= {
 	0x00, 0x02, 0x00, 0x06, 0xe0, 0x0f, 0xf0, 0x1f, 0xf8, 0x3f, 0xf8, 0x1f,
 	0xfc, 0x0f, 0x7c, 0x06, 0x3c, 0x02, 0x3c, 0x00, 0x3c, 0x00, 0x3c, 0x00,
 0x3c, 0x00, 0x3c, 0x00, 0x3c, 0x00, 0x00, 0x00 };
 
+/// массив указателей на глифы команд
+static const unsigned char* cmd_gliphs[] = {0,left,forward,right,left,backward,right}; 
+
 void show_logo (void){
 	//u8g2_SetFont(&u8g2, u8g2_font_robot_de_niro_tf);
 	//u8g2_font_5x8_t_cyrillic
-	u8g2_SetFont(&u8g2, /*u8g2_font_cu12_t_cyrillic*/ u8g2_font_8x13_t_cyrillic );
 	
-	u8g2_ClearBuffer(&u8g2);
+	u8g2_SetFont(&u8g2, /*u8g2_font_cu12_t_cyrillic*/ u8g2_font_5x8_tn );
 	
-	u8g2_DrawUTF8(&u8g2, 0, 21, "Привет!");
-	u8g2_DrawXBMP(&u8g2,50,8,16,16,left);
-	u8g2_DrawXBMP(&u8g2,66,8,16,16,forward);
-	u8g2_DrawXBMP(&u8g2,82,8,16,16,backward);
-	u8g2_DrawXBMP(&u8g2,98,8,16,16,right);
+	//u8g2_ClearBuffer(&u8g2);
+	
+	//u8g2_DrawUTF8(&u8g2, 0, 21, "Привет!");
+	//u8g2_DrawXBMP(&u8g2,50,8,16,16,left);
+	//u8g2_DrawXBMP(&u8g2,66,8,16,16,forward);
+	//u8g2_DrawXBMP(&u8g2,82,8,16,16,backward);
+	//u8g2_DrawXBMP(&u8g2,98,8,16,16,right);
 
 
 	u8g2_SendBuffer(&u8g2);
@@ -309,4 +333,36 @@ void print_key(char key){
 	u8g2_ClearBuffer(&u8g2);
 	u8g2_DrawUTF8(&u8g2,6,21, str);
 	u8g2_SendBuffer(&u8g2);
+}
+
+/// Выводит листинг программы с позиции старт 
+/// и положением курсорв cur
+/// моноширинный шрифт 5x8
+void list_pgr(char *prg, char start, char cur){
+	
+}
+
+static char arg_str[4];
+/// Печатает символ команды в области ввода и числовой аргумент
+void draw_cmd_line(char cmd, unsigned char arg){
+	u8g2_DrawXBMP(&u8g2,cmd_line_x,cmd_line_y,16, 16,cmd_gliphs[cmd]);
+	itoa(arg,arg_str,10);
+	u8g2_SetFont(&u8g2, u8g2_font_10x20_mn );
+	u8g2_DrawStr(&u8g2, cmd_arg_x, cmd_arg_y, arg_str);
+	u8g2_SendBuffer(&u8g2);
+}
+
+/// Выводит/стирает значок режима CMD
+void draw_mode_cmd(char yes){
+
+}
+
+/// Выводит/стирает значок NUM
+void draw_mode_num(char yes){
+
+}
+
+/// Выводит/стирает значок Edit
+void draw_mode_edt(char yes){
+
 }

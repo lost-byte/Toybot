@@ -39,6 +39,7 @@ SUBDIRS :=
 C_SRCS +=  \
 ../beeper.c \
 ../display.c \
+../editor.c \
 ../main.c \
 ../u8g2_bitmap.c \
 ../u8g2_box.c \
@@ -140,6 +141,7 @@ ASM_SRCS +=
 OBJS +=  \
 beeper.o \
 display.o \
+editor.o \
 main.o \
 u8g2_bitmap.o \
 u8g2_box.o \
@@ -234,6 +236,7 @@ u8x8_u8toa.o
 OBJS_AS_ARGS +=  \
 beeper.o \
 display.o \
+editor.o \
 main.o \
 u8g2_bitmap.o \
 u8g2_box.o \
@@ -328,6 +331,7 @@ u8x8_u8toa.o
 C_DEPS +=  \
 beeper.d \
 display.d \
+editor.d \
 main.d \
 u8g2_bitmap.d \
 u8g2_box.d \
@@ -422,6 +426,7 @@ u8x8_u8toa.d
 C_DEPS_AS_ARGS +=  \
 beeper.d \
 display.d \
+editor.d \
 main.d \
 u8g2_bitmap.d \
 u8g2_box.d \
@@ -535,6 +540,13 @@ LINKER_SCRIPT_DEP+=
 	
 
 ./display.o: .././display.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -DDEBUG -DF_CPU=8000000 -DBOARD=USER_BOARD  -I"../src/ASF/common/boards/user_board" -I"../src" -I"../src/config" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\include"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega162 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega162" -c -std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./editor.o: .././editor.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -DDEBUG -DF_CPU=8000000 -DBOARD=USER_BOARD  -I"../src/ASF/common/boards/user_board" -I"../src" -I"../src/config" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\include"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega162 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega162" -c -std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

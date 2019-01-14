@@ -6,6 +6,8 @@ beeper.c
 
 display.c
 
+editor.c
+
 main.c
 
 u8g2_bitmap.c

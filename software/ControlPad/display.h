@@ -10,6 +10,7 @@
 
 void init_display(void);
 void show_logo (void);
-void print_key(char key);
+
+void draw_cmd_line(char cmd, unsigned char arg);
 
 #endif /* DISPLAY_H_ */

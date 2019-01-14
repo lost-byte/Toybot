@@ -6,7 +6,7 @@
 #include "pin_helper.h"
 #include "settings.h"
 #include "display.h"
-#include "beeper.h"
+#include "editor.h"
 
 
 void init(void){
@@ -95,27 +95,27 @@ char key_scan(void){
 	// Разбор битфилда в коды нажатий
 	switch(key_bits){
 		case 0x01:
-			return '1';
+			return 1;
 		case 0x02:
-			return '2';
+			return 2;
 		case 0x04:
-			return '3';
+			return 3;
 		case 0x08:
 			return 'C';
 		case 0x10:
-			return '4';
+			return 4;
 		case 0x20:
-			return '5';
+			return 5;
 		case 0x40:
-			return '6';
+			return 6;
 		case 0x80:
-			return '0';
+			return 0;
 		case 0x100:
-			return '7';
+			return 7;
 		case 0x200:
-			return '8';
+			return 8;
 		case 0x400:
-			return '9';
+			return 9;
 		case 0x800:
 			return 0x0d; //Enter
 		default:
@@ -127,34 +127,14 @@ char key_scan(void){
 int main (void){
 	char key=0;
 	init();
-	//pwm_start();
-	SET(LED1);
 	
 	while(1){
 		key = key_scan();
 		if (key){
-			
-			blip_reg();
-
 			/// Отработать команду
-			print_key(key);
-
-			
+			//print_key(key);
+			// Вызывается в цикле после получения нового нажатия
+			process_key(key);
 		}
-		/*
-		_delay_ms(200);
-		SET(LED2);
-		SET(LED1);
-		_delay_ms(200);
-		CLR(LED2);
-		SET(LED1);
-		_delay_ms(200);
-		SET(LED2);
-		CLR(LED1);
-		_delay_ms(200);
-		CLR(LED2);
-		CLR(LED1);
-		*/
-		TGL(LED1);
 	}
 }

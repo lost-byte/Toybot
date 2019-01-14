@@ -7,6 +7,7 @@
  * выполняет действия или сообщает об ошибке.
  */ 
 
+#include "editor.h"
 #include "display.h"
 #include "beeper.h"
 
@@ -15,19 +16,11 @@
 #define STATE_ARG 2
 #define STATE_EDT 3
 
-/// Коды команд
-#define CMD_FWD 'f'
-#define CMD_BWD 'b'
-#define CMD_LFT 'l'
-#define CMD_RGT 'r'
-#define CMD_FOR 'w'
-#define CMD_HLD 'g'
-#define CMD_NON 0
-
 static char state=STATE_CMD; // состояние ввода программы
 static unsigned char agr_sym_no = 0;
 static char arg_buf[3];
-static char cmd;
+static char curr_cmd=CMD_NON;
+static char curr_arg=1;
 
 // Меняет положение курсора в коде
 void move_cursor(char dir){
@@ -40,10 +33,15 @@ void delete_line(){
 }
 
 void set_cmd(char cmd){
-	if (cmd==CMD_NON){
+	if (cmd!=curr_cmd){
 		// Ввод новой команды
+		curr_cmd = cmd;
+		curr_arg = 1;
+		draw_cmd_line(cmd,curr_arg);
 	}else{
-		// Изменение команды
+		// Увеличение аргумента
+		curr_arg++;
+		draw_cmd_line(cmd,curr_arg);
 	}
 
 }
@@ -51,22 +49,12 @@ void set_cmd(char cmd){
 int process_cmd_key(char key){
 	switch(key){
 	case 1:
-		set_cmd(CMD_FOR);
-		return 1;
 	case 2:
-		set_cmd(CMD_FWD);
-		return 1;
 	case 3:
-		set_cmd(CMD_HLD);
-		return 1;
 	case 4:
-		set_cmd(CMD_LFT);
-		return 1;
 	case 5:
-		set_cmd(CMD_BWD);
-		return 1;
 	case 6:
-		set_cmd(CMD_RGT);
+		set_cmd(key);
 		return 1;
 	case 9:
 		/// Если введена команда - перейти в режим ввода числового аргумента
