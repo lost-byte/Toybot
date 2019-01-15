@@ -9,8 +9,27 @@
 #ifndef BEEPER_H_
 #define BEEPER_H_
 
-void blip_ok();
-void blip_err();
-void blip_enter();
+struct _sample_t{
+	unsigned short duty;
+	unsigned short freq;
+	unsigned short period;
+};
+
+typedef struct _sample_t sample_t;
+
+struct _sound_t{
+	unsigned char len;
+	const sample_t *samples;
+};
+
+typedef struct _sound_t sound_t;
+
+/// {250,500} - 1 KHz 1/2-duty
+
+extern const sound_t blip_ok;
+extern const sound_t blip_err;
+extern const sound_t blip_enter;
+
+void blip(sound_t sound);
 
 #endif /* BEEPER_H_ */

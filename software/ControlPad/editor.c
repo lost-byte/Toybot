@@ -127,13 +127,13 @@ void process_key(char key){
 	}
 	switch (res){
 	case 0:
-		blip_err();
+		blip(blip_err);
 		break;
 	case 1:
-		blip_ok();
+		blip(blip_ok);
 		break;
 	case 2:
-		blip_enter();
+		blip(blip_enter);
 		break;
 	}
 }

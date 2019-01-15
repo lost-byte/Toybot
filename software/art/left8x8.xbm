@@ -1,0 +1,4 @@
+#define left8x8_width 8
+#define left8x8_height 8
+static unsigned char left8x8_bits[] = {
+   0x10, 0x30, 0x7c, 0x36, 0x12, 0x02, 0x02, 0x00 };

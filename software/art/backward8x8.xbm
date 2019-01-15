@@ -1,0 +1,4 @@
+#define backward8x8_width 8
+#define backward8x8_height 8
+static unsigned char backward8x8_bits[] = {
+   0x00, 0x10, 0x10, 0x10, 0x7c, 0x38, 0x10, 0x00 };

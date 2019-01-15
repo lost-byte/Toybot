@@ -1,0 +1,4 @@
+#define forward8x8_width 8
+#define forward8x8_height 8
+static unsigned char forward8x8_bits[] = {
+   0x00, 0x10, 0x38, 0x7c, 0x10, 0x10, 0x10, 0x00 };
