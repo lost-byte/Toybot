@@ -9,9 +9,11 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "u8g2.h"
 #include "pin_helper.h"
 #include "settings.h"
-#include "u8g2.h"
+
+#include "editor.h"
 
 /// Точка (верхняя левая) вывода вводимой строки
 /// Высота командной строки 20
@@ -397,4 +399,27 @@ void draw_mode_num(char yes){
 /// Выводит/стирает значок Edit
 void draw_mode_edt(char yes){
 
+}
+
+/// Печатает лист программы и курсор
+/// листинг выводится в 2 колонки по 4 записи
+#define MAX_COL 2
+#define MAX_ROW 4
+#define PRGREC_W 25
+#define PRGREC_H 8
+void draw_prg_list(prg_t *prg){
+	u8g2_SetFont(&u8g2, /*u8g2_font_cu12_t_cyrillic*/ u8g2_font_5x8_tn );
+	/// По колонкам
+	for (char col=0;col<MAX_COL;col++){
+		// По строчкам
+		for (char row=0;row<MAX_ROW;row++){
+			/// Напечатать в нужном месте символ курсора
+			if ((MAX_ROW*col+row)==cursor_pos){
+				u8g2_DrawStr(&u8g2,col*PRGREC_W,row*PRGREC_H+PRGREC_H,">");
+			}
+			u8g2_DrawXBMP(&u8g2, col*PRGREC_W,row*PRGREC_H,cmd_gliphs8x8[prg->code]);
+			sprintf(arg_str,"%03u",prg->arg);
+			u8g2_DrawStr(&u8g2, col*PRGREC_W+9,row*PRGREC_H+PRGREC_H,arg_str);
+		}
+	}
 }
