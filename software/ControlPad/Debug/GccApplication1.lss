@@ -3,31 +3,31 @@ GccApplication1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000012c  00800100  00002180  00002214  2**0
+  0 .data         0000012e  00800100  00002180  00002214  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   1 .text         00002180  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          0000026c  0080022c  0080022c  00002340  2**0
+  2 .bss          0000026c  0080022e  0080022e  00002342  2**0
                   ALLOC
-  3 .comment      0000005c  00000000  00000000  00002340  2**0
+  3 .comment      0000005c  00000000  00000000  00002342  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000239c  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000023a0  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00001a70  00000000  00000000  000023d8  2**0
+  5 .debug_aranges 00001a78  00000000  00000000  000023dc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0003790e  00000000  00000000  00003e48  2**0
+  6 .debug_info   00037ab0  00000000  00000000  00003e54  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00002d5a  00000000  00000000  0003b756  2**0
+  7 .debug_abbrev 00002d61  00000000  00000000  0003b904  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00009da0  00000000  00000000  0003e4b0  2**0
+  8 .debug_line   00009e19  00000000  00000000  0003e665  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000096f8  00000000  00000000  00048250  2**2
+  9 .debug_frame  00009778  00000000  00000000  00048480  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000cacd  00000000  00000000  00051948  2**0
+ 10 .debug_str    0000cb0d  00000000  00000000  00051bf8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0003b7cc  00000000  00000000  0005e415  2**0
+ 11 .debug_loc    0003b9c8  00000000  00000000  0005e705  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000019d8  00000000  00000000  00099be1  2**0
+ 12 .debug_ranges 00001a10  00000000  00000000  0009a0cd  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -231,13 +231,13 @@ Disassembly of section .text:
      3d2:	02 c0       	rjmp	.+4      	; 0x3d8 <__do_copy_data+0x10>
      3d4:	05 90       	lpm	r0, Z+
      3d6:	0d 92       	st	X+, r0
-     3d8:	ac 32       	cpi	r26, 0x2C	; 44
+     3d8:	ae 32       	cpi	r26, 0x2E	; 46
      3da:	b1 07       	cpc	r27, r17
      3dc:	d9 f7       	brne	.-10     	; 0x3d4 <__do_copy_data+0xc>
 
 000003de <__do_clear_bss>:
      3de:	24 e0       	ldi	r18, 0x04	; 4
-     3e0:	ac e2       	ldi	r26, 0x2C	; 44
+     3e0:	ae e2       	ldi	r26, 0x2E	; 46
      3e2:	b2 e0       	ldi	r27, 0x02	; 2
      3e4:	01 c0       	rjmp	.+2      	; 0x3e8 <.do_clear_bss_start>
 
@@ -245,7 +245,7 @@ Disassembly of section .text:
      3e6:	1d 92       	st	X+, r1
 
 000003e8 <.do_clear_bss_start>:
-     3e8:	a8 39       	cpi	r26, 0x98	; 152
+     3e8:	aa 39       	cpi	r26, 0x9A	; 154
      3ea:	b2 07       	cpc	r27, r18
      3ec:	e1 f7       	brne	.-8      	; 0x3e6 <.do_clear_bss_loop>
      3ee:	c1 d2       	rcall	.+1410   	; 0x972 <main>
@@ -568,26 +568,26 @@ void list_pgr(char *prg, char start, char cur){
      5d8:	32 e0       	ldi	r19, 0x02	; 2
      5da:	40 e3       	ldi	r20, 0x30	; 48
      5dc:	5b e0       	ldi	r21, 0x0B	; 11
-     5de:	66 ef       	ldi	r22, 0xF6	; 246
+     5de:	68 ef       	ldi	r22, 0xF8	; 248
      5e0:	71 e0       	ldi	r23, 0x01	; 1
-     5e2:	82 e3       	ldi	r24, 0x32	; 50
+     5e2:	84 e3       	ldi	r24, 0x34	; 52
      5e4:	94 e0       	ldi	r25, 0x04	; 4
      5e6:	a5 d2       	rcall	.+1354   	; 0xb32 <u8g2_Setup_mt12232_122x32_f>
-     5e8:	82 e3       	ldi	r24, 0x32	; 50
+     5e8:	84 e3       	ldi	r24, 0x34	; 52
      5ea:	94 e0       	ldi	r25, 0x04	; 4
      5ec:	0e 94 92 0c 	call	0x1924	; 0x1924 <u8x8_InitDisplay>
      5f0:	60 e0       	ldi	r22, 0x00	; 0
-     5f2:	82 e3       	ldi	r24, 0x32	; 50
+     5f2:	84 e3       	ldi	r24, 0x34	; 52
      5f4:	94 e0       	ldi	r25, 0x04	; 4
      5f6:	0c 94 9c 0c 	jmp	0x1938	; 0x1938 <u8x8_SetPowerSave>
 
 000005fa <show_logo>:
      5fa:	61 e0       	ldi	r22, 0x01	; 1
      5fc:	73 e0       	ldi	r23, 0x03	; 3
-     5fe:	82 e3       	ldi	r24, 0x32	; 50
+     5fe:	84 e3       	ldi	r24, 0x34	; 52
      600:	94 e0       	ldi	r25, 0x04	; 4
      602:	2a d6       	rcall	.+3156   	; 0x1258 <u8g2_SetFont>
-     604:	82 e3       	ldi	r24, 0x32	; 50
+     604:	84 e3       	ldi	r24, 0x34	; 52
      606:	94 e0       	ldi	r25, 0x04	; 4
      608:	86 c2       	rjmp	.+1292   	; 0xb16 <u8g2_SendBuffer>
 
@@ -607,7 +607,7 @@ void draw_cmd_line(char cmd, unsigned char arg){
      614:	88 0f       	add	r24, r24
      616:	99 0b       	sbc	r25, r25
      618:	fc 01       	movw	r30, r24
-     61a:	e8 51       	subi	r30, 0x18	; 24
+     61a:	e6 51       	subi	r30, 0x16	; 22
      61c:	fe 4f       	sbci	r31, 0xFE	; 254
      61e:	e0 80       	ld	r14, Z
      620:	f1 80       	ldd	r15, Z+1	; 0x01
@@ -615,7 +615,7 @@ void draw_cmd_line(char cmd, unsigned char arg){
      624:	24 e1       	ldi	r18, 0x14	; 20
      626:	4b e0       	ldi	r20, 0x0B	; 11
      628:	6e e3       	ldi	r22, 0x3E	; 62
-     62a:	82 e3       	ldi	r24, 0x32	; 50
+     62a:	84 e3       	ldi	r24, 0x34	; 52
      62c:	94 e0       	ldi	r25, 0x04	; 4
      62e:	fe d1       	rcall	.+1020   	; 0xa2c <u8g2_DrawXBMP>
 	//itoa(arg,arg_str,10);
@@ -626,7 +626,7 @@ void draw_cmd_line(char cmd, unsigned char arg){
      636:	91 e0       	ldi	r25, 0x01	; 1
      638:	9f 93       	push	r25
      63a:	8f 93       	push	r24
-     63c:	8c e2       	ldi	r24, 0x2C	; 44
+     63c:	8e e2       	ldi	r24, 0x2E	; 46
      63e:	92 e0       	ldi	r25, 0x02	; 2
      640:	9f 93       	push	r25
      642:	8f 93       	push	r24
@@ -635,16 +635,16 @@ void draw_cmd_line(char cmd, unsigned char arg){
 	u8g2_SetFont(&u8g2, u8g2_font_profont22_tn ); // неплохо
      648:	68 ea       	ldi	r22, 0xA8	; 168
      64a:	71 e0       	ldi	r23, 0x01	; 1
-     64c:	82 e3       	ldi	r24, 0x32	; 50
+     64c:	84 e3       	ldi	r24, 0x34	; 52
      64e:	94 e0       	ldi	r25, 0x04	; 4
      650:	03 d6       	rcall	.+3078   	; 0x1258 <u8g2_SetFont>
 	//u8g2_SetFont(&u8g2, u8g2_font_helvB18_tn ); // великоват, нули не перечеркнуты
 	u8g2_DrawStr(&u8g2, cmd_arg_x, cmd_arg_y, arg_str);
-     652:	2c e2       	ldi	r18, 0x2C	; 44
+     652:	2e e2       	ldi	r18, 0x2E	; 46
      654:	32 e0       	ldi	r19, 0x02	; 2
      656:	4d e1       	ldi	r20, 0x1D	; 29
      658:	62 e5       	ldi	r22, 0x52	; 82
-     65a:	82 e3       	ldi	r24, 0x32	; 50
+     65a:	84 e3       	ldi	r24, 0x34	; 52
      65c:	94 e0       	ldi	r25, 0x04	; 4
      65e:	ab d5       	rcall	.+2902   	; 0x11b6 <u8g2_DrawStr>
 	u8g2_SendBuffer(&u8g2);
@@ -654,7 +654,7 @@ void draw_cmd_line(char cmd, unsigned char arg){
      666:	0f 90       	pop	r0
      668:	0f 90       	pop	r0
      66a:	0f 90       	pop	r0
-     66c:	82 e3       	ldi	r24, 0x32	; 50
+     66c:	84 e3       	ldi	r24, 0x34	; 52
      66e:	94 e0       	ldi	r25, 0x04	; 4
 }
      670:	cf 91       	pop	r28
@@ -676,12 +676,12 @@ void delete_line(){
 
 void set_cmd(char cmd){
 	if (cmd!=curr_cmd){
-     67a:	90 91 30 02 	lds	r25, 0x0230	; 0x800230 <curr_cmd>
+     67a:	90 91 32 02 	lds	r25, 0x0232	; 0x800232 <curr_cmd>
      67e:	98 17       	cp	r25, r24
      680:	39 f0       	breq	.+14     	; 0x690 <set_cmd+0x16>
 		// ���� ����� �������
 		curr_cmd = cmd;
-     682:	80 93 30 02 	sts	0x0230, r24	; 0x800230 <curr_cmd>
+     682:	80 93 32 02 	sts	0x0232, r24	; 0x800232 <curr_cmd>
 		curr_arg = 1;
      686:	91 e0       	ldi	r25, 0x01	; 1
      688:	90 93 00 01 	sts	0x0100, r25	; 0x800100 <__data_start>
@@ -1700,7 +1700,7 @@ uint8_t *u8g2_m_16_4_f(uint8_t *page_cnt)
      b2a:	20 83       	st	Z, r18
   return buf;
 }
-     b2c:	81 e3       	ldi	r24, 0x31	; 49
+     b2c:	83 e3       	ldi	r24, 0x33	; 51
      b2e:	92 e0       	ldi	r25, 0x02	; 2
      b30:	08 95       	ret
 
@@ -3695,7 +3695,7 @@ uint8_t u8x8_byte_sed1520(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_
     16b4:	0f d2       	rcall	.+1054   	; 0x1ad4 <u8x8_gpio_call>
 	u8x8_gpio_call(u8x8, enable_pin, 1);
     16b6:	41 e0       	ldi	r20, 0x01	; 1
-    16b8:	60 91 31 04 	lds	r22, 0x0431	; 0x800431 <enable_pin.2989>
+    16b8:	60 91 33 04 	lds	r22, 0x0433	; 0x800433 <enable_pin.2989>
     16bc:	ce 01       	movw	r24, r28
     16be:	0a d2       	rcall	.+1044   	; 0x1ad4 <u8x8_gpio_call>
 	u8x8_gpio_Delay(u8x8, U8X8_MSG_DELAY_NANO, 200);		/* KS0108 requires 450 ns, use 200 here */
@@ -3712,7 +3712,7 @@ uint8_t u8x8_byte_sed1520(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_
     16d2:	00 d2       	rcall	.+1024   	; 0x1ad4 <u8x8_gpio_call>
 	u8x8_gpio_call(u8x8, enable_pin, 0);
     16d4:	40 e0       	ldi	r20, 0x00	; 0
-    16d6:	60 91 31 04 	lds	r22, 0x0431	; 0x800431 <enable_pin.2989>
+    16d6:	60 91 33 04 	lds	r22, 0x0433	; 0x800433 <enable_pin.2989>
     16da:	ce 01       	movw	r24, r28
     16dc:	fb d1       	rcall	.+1014   	; 0x1ad4 <u8x8_gpio_call>
     16de:	11 23       	and	r17, r17
@@ -3757,7 +3757,7 @@ uint8_t u8x8_byte_sed1520(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_
     1704:	ce 01       	movw	r24, r28
     1706:	e6 d1       	rcall	.+972    	; 0x1ad4 <u8x8_gpio_call>
     1708:	88 e4       	ldi	r24, 0x48	; 72
-    170a:	80 93 31 04 	sts	0x0431, r24	; 0x800431 <enable_pin.2989>
+    170a:	80 93 33 04 	sts	0x0433, r24	; 0x800433 <enable_pin.2989>
       enable_pin = U8X8_MSG_GPIO_E;
     170e:	81 e0       	ldi	r24, 0x01	; 1
     1710:	05 c0       	rjmp	.+10     	; 0x171c <u8x8_byte_sed1520+0xbc>
@@ -4201,7 +4201,7 @@ uint8_t u8x8_d_mt12232_122x32(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *
   {
     case U8X8_MSG_DISPLAY_SETUP_MEMORY:
       u8x8_d_helper_display_setup_memory(u8x8, &u8x8_mt12232_122x32_display_info);
-    197e:	6c ef       	ldi	r22, 0xFC	; 252
+    197e:	6e ef       	ldi	r22, 0xFE	; 254
     1980:	71 e0       	ldi	r23, 0x01	; 1
     1982:	69 df       	rcall	.-302    	; 0x1856 <u8x8_d_helper_display_setup_memory>
     1984:	9d c0       	rjmp	.+314    	; 0x1ac0 <u8x8_d_mt12232_122x32+0x160>
@@ -4311,7 +4311,7 @@ uint8_t u8x8_d_mt12232_122x32(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *
     1a0a:	ce 01       	movw	r24, r28
       u8x8_cad_SendSequence(u8x8, u8x8_d_mt12232_L_init_seq);
     1a0c:	09 95       	icall
-    1a0e:	63 e2       	ldi	r22, 0x23	; 35
+    1a0e:	65 e2       	ldi	r22, 0x25	; 37
     1a10:	72 e0       	ldi	r23, 0x02	; 2
     1a12:	ce 01       	movw	r24, r28
     1a14:	9e de       	rcall	.-708    	; 0x1752 <u8x8_cad_SendSequence>
@@ -4335,7 +4335,7 @@ uint8_t u8x8_d_mt12232_122x32(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *
     1a32:	ce 01       	movw	r24, r28
     1a34:	09 95       	icall
       u8x8_cad_SendSequence(u8x8, u8x8_d_mt12232_R_init_seq);
-    1a36:	6a e1       	ldi	r22, 0x1A	; 26
+    1a36:	6c e1       	ldi	r22, 0x1C	; 28
     1a38:	72 e0       	ldi	r23, 0x02	; 2
     1a3a:	38 c0       	rjmp	.+112    	; 0x1aac <u8x8_d_mt12232_122x32+0x14c>
     1a3c:	ee 81       	ldd	r30, Y+6	; 0x06
@@ -4361,7 +4361,7 @@ uint8_t u8x8_d_mt12232_122x32(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *
     1a48:	68 e1       	ldi	r22, 0x18	; 24
 	u8x8_cad_SendSequence(u8x8, u8x8_d_mt12232_powersave0_seq);
     1a4a:	09 95       	icall
-    1a4c:	67 e1       	ldi	r22, 0x17	; 23
+    1a4c:	69 e1       	ldi	r22, 0x19	; 25
     1a4e:	72 e0       	ldi	r23, 0x02	; 2
     1a50:	ce 01       	movw	r24, r28
     1a52:	7f de       	rcall	.-770    	; 0x1752 <u8x8_cad_SendSequence>
@@ -4385,7 +4385,7 @@ uint8_t u8x8_d_mt12232_122x32(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *
     1a70:	ce 01       	movw	r24, r28
 	u8x8_cad_SendSequence(u8x8, u8x8_d_mt12232_powersave0_seq);
     1a72:	09 95       	icall
-    1a74:	67 e1       	ldi	r22, 0x17	; 23
+    1a74:	69 e1       	ldi	r22, 0x19	; 25
     1a76:	72 e0       	ldi	r23, 0x02	; 2
 	u8x8->cad_cb(u8x8, U8X8_MSG_CAD_END_TRANSFER, 1, NULL);	
       }
@@ -4397,7 +4397,7 @@ uint8_t u8x8_d_mt12232_122x32(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *
     1a7c:	68 e1       	ldi	r22, 0x18	; 24
 	u8x8_cad_SendSequence(u8x8, u8x8_d_mt12232_powersave1_seq);
     1a7e:	09 95       	icall
-    1a80:	64 e1       	ldi	r22, 0x14	; 20
+    1a80:	66 e1       	ldi	r22, 0x16	; 22
     1a82:	72 e0       	ldi	r23, 0x02	; 2
     1a84:	ce 01       	movw	r24, r28
     1a86:	65 de       	rcall	.-822    	; 0x1752 <u8x8_cad_SendSequence>
@@ -4421,7 +4421,7 @@ uint8_t u8x8_d_mt12232_122x32(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *
     1aa4:	ce 01       	movw	r24, r28
 	u8x8_cad_SendSequence(u8x8, u8x8_d_mt12232_powersave1_seq);
     1aa6:	09 95       	icall
-    1aa8:	64 e1       	ldi	r22, 0x14	; 20
+    1aa8:	66 e1       	ldi	r22, 0x16	; 22
     1aaa:	72 e0       	ldi	r23, 0x02	; 2
     1aac:	ce 01       	movw	r24, r28
     1aae:	51 de       	rcall	.-862    	; 0x1752 <u8x8_cad_SendSequence>

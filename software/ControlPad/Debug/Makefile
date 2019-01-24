@@ -129,7 +129,9 @@ C_SRCS +=  \
 ../u8x8_setup.c \
 ../u8x8_string.c \
 ../u8x8_u16toa.c \
-../u8x8_u8toa.c
+../u8x8_u8toa.c \
+../uart.c \
+../uart_cli.c
 
 
 PREPROCESSING_SRCS += 
@@ -231,7 +233,9 @@ u8x8_selection_list.o \
 u8x8_setup.o \
 u8x8_string.o \
 u8x8_u16toa.o \
-u8x8_u8toa.o
+u8x8_u8toa.o \
+uart.o \
+uart_cli.o
 
 OBJS_AS_ARGS +=  \
 beeper.o \
@@ -326,7 +330,9 @@ u8x8_selection_list.o \
 u8x8_setup.o \
 u8x8_string.o \
 u8x8_u16toa.o \
-u8x8_u8toa.o
+u8x8_u8toa.o \
+uart.o \
+uart_cli.o
 
 C_DEPS +=  \
 beeper.d \
@@ -421,7 +427,9 @@ u8x8_selection_list.d \
 u8x8_setup.d \
 u8x8_string.d \
 u8x8_u16toa.d \
-u8x8_u8toa.d
+u8x8_u8toa.d \
+uart.d \
+uart_cli.d
 
 C_DEPS_AS_ARGS +=  \
 beeper.d \
@@ -516,7 +524,9 @@ u8x8_selection_list.d \
 u8x8_setup.d \
 u8x8_string.d \
 u8x8_u16toa.d \
-u8x8_u8toa.d
+u8x8_u8toa.d \
+uart.d \
+uart_cli.d
 
 OUTPUT_FILE_PATH +=GccApplication1.elf
 
@@ -1177,6 +1187,20 @@ LINKER_SCRIPT_DEP+=
 	
 
 ./u8x8_u8toa.o: .././u8x8_u8toa.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -DDEBUG -DF_CPU=8000000 -DBOARD=USER_BOARD  -I"../src/ASF/common/boards/user_board" -I"../src" -I"../src/config" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\include"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega162 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega162" -c -std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./uart.o: .././uart.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -DDEBUG -DF_CPU=8000000 -DBOARD=USER_BOARD  -I"../src/ASF/common/boards/user_board" -I"../src" -I"../src/config" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\include"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega162 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega162" -c -std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+./uart_cli.o: .././uart_cli.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -DDEBUG -DF_CPU=8000000 -DBOARD=USER_BOARD  -I"../src/ASF/common/boards/user_board" -I"../src" -I"../src/config" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\include"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega162 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega162" -c -std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

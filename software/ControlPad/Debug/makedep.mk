@@ -188,3 +188,7 @@ u8x8_u16toa.c
 
 u8x8_u8toa.c
 
+uart.c
+
+uart_cli.c
+

@@ -8,6 +8,8 @@
 #ifndef DISPLAY_H_
 #define DISPLAY_H_
 
+#include "editor.h"
+
 void init_display(void);
 void show_logo (void);
 

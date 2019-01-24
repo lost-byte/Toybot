@@ -414,11 +414,11 @@ void draw_prg_list(prg_t *prg){
 		// По строчкам
 		for (char row=0;row<MAX_ROW;row++){
 			/// Напечатать в нужном месте символ курсора
-			if ((MAX_ROW*col+row)==cursor_pos){
+			if ((MAX_ROW*col+row)==prg->cur_pos){
 				u8g2_DrawStr(&u8g2,col*PRGREC_W,row*PRGREC_H+PRGREC_H,">");
 			}
-			u8g2_DrawXBMP(&u8g2, col*PRGREC_W,row*PRGREC_H,cmd_gliphs8x8[prg->code]);
-			sprintf(arg_str,"%03u",prg->arg);
+			u8g2_DrawXBMP(&u8g2, col*PRGREC_W,row*PRGREC_H,8,8,cmd_gliphs8x8[prg->prg_rows[MAX_ROW*col+row].code]);
+			sprintf(arg_str,"%03u",prg->prg_rows[MAX_ROW*col+row].arg);
 			u8g2_DrawStr(&u8g2, col*PRGREC_W+9,row*PRGREC_H+PRGREC_H,arg_str);
 		}
 	}
