@@ -9,6 +9,8 @@
 #ifndef EDITOR_H_
 #define EDITOR_H_
 
+#include "settings.h"
+
 /// Коды команд
 #define CMD_FWD 'f'
 #define CMD_BWD 'b'
@@ -27,7 +29,7 @@ struct _prg_record_t{
 typedef struct _prg_record_t prg_recrd_t;
 
 struct _prg_t{
-	prg_recrd_t *prg_rows;
+	prg_recrd_t prg_rows[PRG_MAXROWS];
 	unsigned char len;
 	unsigned char cur_pos;
 };
