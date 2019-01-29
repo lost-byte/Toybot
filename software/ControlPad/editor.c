@@ -22,14 +22,49 @@ static char arg_buf[3];
 static char curr_cmd=CMD_NON;
 static char curr_arg=1;
 
-// Меняет положение курсора в коде
-void move_cursor(char dir){
+prg_t programm;
 
+void add_line(){
+	programm.prg_rows[programm.len].code=curr_cmd;
+	programm.prg_rows[programm.len].arg=curr_arg;
+	programm.len++;
+	draw_prg_list(&programm);
+}
+
+void ins_line(){
+	// Сдвинуть программу начиная со строки ЗА позицией курсора ВНМЗ
+	for (unsigned char i=programm.len;i>programm.cur_pos;i--){
+		programm.prg_rows[i]=programm.prg_rows[i-1];
+	}
+	programm.prg_rows[programm.cur_pos+1].code=curr_cmd;
+	programm.prg_rows[programm.cur_pos+1].arg=curr_arg;
+	programm.len++;
+	draw_prg_list(&programm);
 }
 
 // Удаляет выбранную строчку кода в режиме edt
 void delete_line(){
+	// Сдвинуть программу начиная со ВТОРОЙ строки ЗА позицией курсора ВВЕРХ
+	for (unsigned char i=programm.cur_pos+1;i<programm.len;i++){
+		programm.prg_rows[i-1]=programm.prg_rows[i];
+	}
+	programm.len--;
+	draw_prg_list(&programm);
+}
 
+// Меняет положение курсора в коде
+void move_cursor(char dir){
+	if (dir){
+		(programm.cur_pos<programm.len)?(programm.cur_pos++):(programm.cur_pos=0);
+	}else{
+		(programm.cur_pos!=0)?(programm.cur_pos--):(programm.cur_pos=programm.len);
+	}
+}
+
+// Стирает всю программу
+void clear_prg(){
+	programm.len=0;
+	programm.cur_pos=0;
 }
 
 void set_cmd(char cmd){
@@ -66,6 +101,8 @@ int process_cmd_key(char key){
 		return 2;
 	case 0x0d:
 		// Завершить ввод команды
+		/// подшить введенную строчку в программу
+		add_line();
 		return 2;
 	default:
 		return 0;
@@ -80,6 +117,7 @@ int process_arg_key(char key){
 	case 0x0d:
 		/// Завершить ввод
 		/// подшить введенную строчку в программу
+		add_line();
 		return 2;
 	default:
 		return 0;

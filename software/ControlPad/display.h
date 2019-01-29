@@ -14,6 +14,6 @@ void init_display(void);
 void show_logo (void);
 
 void draw_cmd_line(char cmd, unsigned char arg);
-void draw_prg_list(prg_recrd_t *prg, unsigned char cursor_pos);
+void draw_prg_list(prg_t *prg);
 
 #endif /* DISPLAY_H_ */

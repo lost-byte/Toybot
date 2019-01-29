@@ -49,6 +49,6 @@
 // Beeper
 #define BEEPER E,2
 
-#define PRG_MAXROWS 64
+#define PRG_MAXROWS 32
 
 #endif /* SETTINGS_H_ */
